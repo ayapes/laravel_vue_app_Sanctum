@@ -6,6 +6,7 @@ import BookAdd from '../components/BookAdd.vue'
 import UserList from '../components/UserList.vue'
 import BookSearch from '../components/BookSearch.vue'
 import HomeView from '../components/HomeView.vue'
+import Login from '../components/Login.vue'
 
 export const router = createRouter({
     history: createWebHistory(),
@@ -48,6 +49,12 @@ export const router = createRouter({
             path: '/test',
             name: 'test',
             component: HomeView,
+        },
+
+        {
+            path:'/login',
+            name:'login',
+            component:Login,
         },
     ]
 })

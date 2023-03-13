@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Api\MeController;
 use Illuminate\Support\Facades\Route;
 
 // Laravel8から使うコントローラのuseが必要
@@ -30,3 +31,7 @@ Route::apiResource('/users',UserController::class);
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/me', MeController::class);
+});
