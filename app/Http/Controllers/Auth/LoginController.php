@@ -1,40 +1,37 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Auth\AuthenticationException;
-use Illuminate\Auth\AuthManager;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+// use App\Http\Requests\Auth\LoginRequest;
+// use Illuminate\Auth\AuthenticationException;
+// use Illuminate\Auth\AuthManager;
+// use Illuminate\Http\JsonResponse;
 
 final class LoginController extends Controller
 {
-    /**
-     * @param AuthManager $auth
-     */
-    public function __construct(
-        private readonly AuthManager $auth,
-    ) {
-    }
-
-    /**
-     * @param LoginRequest $request
-     * @return JsonResponse
-     * @throws AuthenticationException
-     */
-    public function __invoke(LoginRequest $request): JsonResponse
+    public function login(Request $request)
     {
-        $credentials = $request->only(['email', 'password']);
+        $credential = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-        if ($this->auth->guard()->attempt($credentials)) {
+        if (Auth::attempt($credential)) {
+            // sessionIDを（再）生成する
             $request->session()->regenerate();
 
-            return new JsonResponse([
-                'message' => 'Authenticated.',
+            return response()->json([
+                'message' => 'ログインしました',
             ]);
         }
 
-        throw new AuthenticationException();
+        return response()->json([
+            'message' => 'メールアドレスまたはパスワードが間違っています',
+        ], 401);
     }
 }

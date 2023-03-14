@@ -22,6 +22,9 @@
             <li class="nav_li">
                 <router-link to="/login" class="nav_link">ログイン</router-link>
             </li>
+            <li class="nav_li">
+                <router-link to="/logout" class="nav_link">ログアウト</router-link>
+            </li>
             <!-- <li class="nav_li">
                 <router-link to="/test" class="nav_link">TEST</router-link>
             </li> -->

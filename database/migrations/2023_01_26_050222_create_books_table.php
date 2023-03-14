@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('isbn');
             $table->string('largeImageUrl');
             // サマリー：紹介文
-            $table->string('itemCaption')->nullable();
+            $table->longText('itemCaption')->nullable();
             $table->string('gunre')->nullable();
-            $table->string('myReview')->nullable();
+            $table->longText('myReview')->nullable();
             // 貸出可能かavailable
             $table->boolean('available');
             $table->timestamps();
