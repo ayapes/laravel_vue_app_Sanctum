@@ -14,21 +14,28 @@ use App\Http\Controllers\LoanController;
 
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
 Route::post('/logout', [App\Http\Controllers\Auth\LogoutController::class, 'logout']);
+Route::get('/books', [BookController::class, 'index']);
+Route::get('/books/getRakutenAPI', [BookController::class, 'getRakutenAPI']);
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+// ログイン判定・・？
+Route::middleware('auth:sanctum')->get('/loginCheck',function (Request $request) {
+});
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // Route::get('/me', MeController::class);
 
-    Route::get('/books/getRakutenAPI', [BookController::class, 'getRakutenAPI']);
+    // Route::get('/books/getRakutenAPI', [BookController::class, 'getRakutenAPI']);
 
-    Route::apiResource('/books', BookController::class);
+    // Route::apiResource('/books', BookController::class);
 
     Route::apiResource('/loans', LoanController::class);
 
     Route::post('/books/search', [BookController::class, 'search']);
+    Route::post('/books', [BookController::class, 'store']);
 
     Route::apiResource('/users', UserController::class);
 });

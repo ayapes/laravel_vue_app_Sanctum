@@ -35,6 +35,7 @@ export default {
                 password: this.password,
             })
             console.log(response);
+            this.$router.push('/');
         }
 
     },
